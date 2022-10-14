@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane  xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: white;"
+            fx:controller="com.example.demo.HelloController">
+    <Label layoutX="100.0" layoutY="5.0" prefHeight="78.0" prefWidth="4000.0" text="8-Puzzle Solver" textAlignment="CENTER">
+        <font>
+            <Font name="Forte" size="50.0" />
+        </font>
+    </Label>
+
+    <Label fx:id="zero"  layoutX="100.0" layoutY="100.0"   prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #57F74D;"> <font><Font name="System Bold Italic" size="40.0" /></font> </Label>
+    <Label fx:id="one" layoutX="210.0" layoutY="100.0"   prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #57F74D;" > <font><Font name="System Bold Italic" size="40.0" /></font> </Label>
+    <Label fx:id="two" layoutX="320.0" layoutY="100.0"   prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #57F74D;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="three" layoutX="100.0" layoutY="210.0"   prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #57F74D;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="four" layoutX="210.0" layoutY="210.0"   prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #57F74D;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="five" layoutX="320.0" layoutY="210.0"   prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #57F74D;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="six" layoutX="100.0" layoutY="320.0"   prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #57F74D;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="seven" layoutX="210.0" layoutY="320.0"   prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #57F74D;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="eight" layoutX="320.0" layoutY="320.0"   prefHeight="71.0" prefWidth="79.0"  style="-fx-background-color: #57F74D;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Button layoutX="400.0" layoutY="500.0" text="Solve!" onAction="#onHelloButtonClick"/>
+</AnchorPane>
