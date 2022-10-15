@@ -1,12 +1,10 @@
 package com.example.demo;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class Controller {
     @FXML
@@ -50,8 +48,40 @@ public class Controller {
         // populate algorithm combo box with item choices.
         AlgorithmsCombo.getItems().setAll("DFS", "BFS", "A*");
     }
-
     private int[] arr=new int[9];
+    private void alert_error(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid input ");
+        alert.setHeaderText("Try again !");
+        alert.setContentText(message);
+        alert.show();
+    }
+    private boolean inputValidation(){
+
+        if(!textfield.getText().isEmpty() && Pattern.matches("([0-8],){8}[0-8]",textfield.getText())){
+            System.out.println("correct");
+            //checking repetition
+            for(int i=0;i<9;i++){
+                int searching=arr[i];
+                for(int j=0;j<9;j++){
+                    if(j!=i){
+                    if(arr[j]==searching){
+                        alert_error("Repeated numbers are not allowed in initial state of 8-puzzle");
+                        return false; //error repeated number found
+                         }}
+                }
+            }
+            //check if algorithm is chosen
+            if(AlgorithmsCombo.getValue()==null){
+                alert_error("Choose algorithm ,please"); return false;}
+            return true;
+        }
+        else{alert_error("Invalid Initial state ! Enter it as following (ex :1,2,3,4,6,8,7,0,5)");
+            System.out.println("incorrect");
+            return false;
+        }
+    }
+ 
 
     private int last_step=1;
     void display_values(){
@@ -76,26 +106,32 @@ public class Controller {
     }
     @FXML
     protected void SetInitialState() {
-         System.out.println(AlgorithmsCombo.getValue());
-        //setting initial array to be displayed
-        String[] array= ( textfield.getText().split(","));
-        for(int i=0;i< array.length;i++){
-            arr[i]=Integer.valueOf(array[i]);
-        }
-        textfield.setText("");
-        zero.setText(String.valueOf(arr[0])); //first num displayed from algorithm
 
-        one.setText(String.valueOf(arr[1]));
-        two.setText(String.valueOf(arr[2]));
-        three.setText(String.valueOf(arr[3]));
-        four.setText(String.valueOf(arr[4]));
-        five.setText(String.valueOf(arr[5]));
-        six.setText(String.valueOf(arr[6]));
-        seven.setText(String.valueOf(arr[7]));
-        eight.setText(String.valueOf(arr[8]));
+        //if input is correct
+        // array will be set ,start sending it to functions and display initial state
+
+        if(inputValidation()) {
+            System.out.println(AlgorithmsCombo.getValue());
+            //setting initial array to be displayed
+            String[] array= ( textfield.getText().split(","));
+            for(int i=0;i< array.length;i++){
+                arr[i]=Integer.valueOf(array[i]);
+            }
+            textfield.setText("");
+            zero.setText(String.valueOf(arr[0])); //first num displayed from algorithm
+
+            one.setText(String.valueOf(arr[1]));
+            two.setText(String.valueOf(arr[2]));
+            three.setText(String.valueOf(arr[3]));
+            four.setText(String.valueOf(arr[4]));
+            five.setText(String.valueOf(arr[5]));
+            six.setText(String.valueOf(arr[6]));
+            seven.setText(String.valueOf(arr[7]));
+            eight.setText(String.valueOf(arr[8]));
 
 
-        //enabling next button
-        next.setDisable(false);
-    }
+            //enabling next button
+            next.setDisable(false);
+
+        }}
 }
