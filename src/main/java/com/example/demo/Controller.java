@@ -56,8 +56,23 @@ public class Controller {
         alert.setContentText(message);
         alert.show();
     }
-    private boolean inputValidation(){
+    private boolean parse_input(){
+        if(Pattern.matches("(\\d|,)*",textfield.getText())){
+            System.out.println(AlgorithmsCombo.getValue());
+            //setting initial array to be displayed
+            String[] array= ( textfield.getText().split(","));
+            for(int i=0;i< array.length;i++){
+                arr[i]=Integer.valueOf(array[i]);
+            }return true;}
+        //end of checking if the input contain unknown character
+        else{
+            alert_error("Numbers and commas only are allowed");
+            return false;
+        }
 
+    }
+    private boolean inputValidation(){
+        if(parse_input()){
         if(!textfield.getText().isEmpty() && Pattern.matches("([0-8],){8}[0-8]",textfield.getText())){
             System.out.println("correct");
             //checking repetition
@@ -79,9 +94,10 @@ public class Controller {
         else{alert_error("Invalid Initial state ! Enter it as following (ex :1,2,3,4,6,8,7,0,5)");
             System.out.println("incorrect");
             return false;
-        }
+        }}
+        else{return false;}
     }
- 
+
 
     private int last_step=1;
     void display_values(){
@@ -107,16 +123,9 @@ public class Controller {
     @FXML
     protected void SetInitialState() {
 
-        //if input is correct
-        // array will be set ,start sending it to functions and display initial state
+        //if input is correct and array is inserted correctly,start sending it to functions and display initial state
 
         if(inputValidation()) {
-            System.out.println(AlgorithmsCombo.getValue());
-            //setting initial array to be displayed
-            String[] array= ( textfield.getText().split(","));
-            for(int i=0;i< array.length;i++){
-                arr[i]=Integer.valueOf(array[i]);
-            }
             textfield.setText("");
             zero.setText(String.valueOf(arr[0])); //first num displayed from algorithm
 
