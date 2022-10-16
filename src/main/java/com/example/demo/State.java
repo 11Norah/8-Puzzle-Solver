@@ -10,7 +10,7 @@ public class State implements Comparable<State> {
     private final int[] yChange = {0, 0, 1, -1};
     private final int[] numbers;
     private final ArrayList<int[]> adjacent;
-    private final double heuristicCost;
+    private double heuristicCost;
     private final State parent;
     private int emptySlot;
 
@@ -22,6 +22,16 @@ public class State implements Comparable<State> {
         adjacent = new ArrayList<>();
         this.parent = parent;
         heuristicCost = heuristic.getHeuristic();
+        getMatrix();
+        detectEmptySlot();
+        generateAdjacent();
+    }
+
+    public State(int[] numbers, State parent) {
+        this.numbers = numbers;
+        this.matrix = new int[3][3];
+        adjacent = new ArrayList<>();
+        this.parent = parent;
         getMatrix();
         detectEmptySlot();
         generateAdjacent();
@@ -104,6 +114,14 @@ public class State implements Comparable<State> {
         }
     }
 
+    public boolean isGoalState() {
+        int turn = 0;
+        for(int num : numbers) {
+            if(turn != num) return false;
+            turn++;
+        }
+        return true;
+    }
 
     @Override
     public int compareTo(State o) {
