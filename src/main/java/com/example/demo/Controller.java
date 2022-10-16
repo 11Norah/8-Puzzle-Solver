@@ -60,10 +60,12 @@ public class Controller {
         if(Pattern.matches("(\\d|,)*",textfield.getText())){
             System.out.println(AlgorithmsCombo.getValue());
             //setting initial array to be displayed
+            if(textfield.getText().contains(",,")){alert_error("Two commas aren't allowed"); return false;}
+            else{
             String[] array= ( textfield.getText().split(","));
             for(int i=0;i< array.length;i++){
                 arr[i]=Integer.valueOf(array[i]);
-            }return true;}
+            }return true;}}
         //end of checking if the input contain unknown character
         else{
             alert_error("Numbers and commas only are allowed");

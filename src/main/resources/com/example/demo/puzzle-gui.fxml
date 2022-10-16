@@ -21,15 +21,15 @@
 
 
 
-    <Label fx:id="zero"  layoutX="100.0" layoutY="100.0"  textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;"> <font><Font name="System Bold Italic" size="40.0" /></font> </Label>
-    <Label fx:id="one" layoutX="210.0" layoutY="100.0"   textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" > <font><Font name="System Bold Italic" size="40.0" /></font> </Label>
-    <Label fx:id="two" layoutX="320.0" layoutY="100.0"   textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
-    <Label fx:id="three" layoutX="100.0" layoutY="210.0"  textAlignment="CENTER"  prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
-    <Label fx:id="four" layoutX="210.0" layoutY="210.0"  textAlignment="CENTER"  prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
-    <Label fx:id="five" layoutX="320.0" layoutY="210.0" textAlignment="CENTER"  prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
-    <Label fx:id="six" layoutX="100.0" layoutY="320.0"  textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
-    <Label fx:id="seven" layoutX="210.0" layoutY="320.0"  textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
-    <Label fx:id="eight" layoutX="320.0" layoutY="320.0"  textAlignment="CENTER"  prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" ><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="zero"  layoutX="100.0" layoutY="100.0"  textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="0" alignment="center"> <font><Font name="System Bold Italic" size="40.0" /></font> </Label>
+    <Label fx:id="one" layoutX="210.0" layoutY="100.0"   textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="1" alignment="center"> <font><Font name="System Bold Italic" size="40.0" /></font> </Label>
+    <Label fx:id="two" layoutX="320.0" layoutY="100.0"   textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="2" alignment="center"><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="three" layoutX="100.0" layoutY="210.0"  textAlignment="CENTER"  prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="3" alignment="center"><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="four" layoutX="210.0" layoutY="210.0"  textAlignment="CENTER"  prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="4" alignment="center"><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="five" layoutX="320.0" layoutY="210.0" textAlignment="CENTER"  prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="5" alignment="center"><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="six" layoutX="100.0" layoutY="320.0"  textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="6" alignment="center"><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="seven" layoutX="210.0" layoutY="320.0"  textAlignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="7" alignment="center"><font><Font name="System Bold Italic" size="40.0" /></font></Label>
+    <Label fx:id="eight" layoutX="320.0" layoutY="320.0"  textAlignment="CENTER"  prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #FFCC99;" text="8" alignment="center"><font><Font name="System Bold Italic" size="40.0" /></font></Label>
   <!--labels for needed values-->
     <Label text="Cost of path :" layoutX="500.0" layoutY="100.0"    prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
     <Label fx:id="cost" layoutX="640.0" layoutY="100.0"    prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
