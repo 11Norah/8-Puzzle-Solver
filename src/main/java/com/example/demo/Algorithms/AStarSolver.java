@@ -41,14 +41,17 @@ public class AStarSolver implements puzzleSolver {
         ArrayList<State> explored = new ArrayList<>();
         ArrayList<int[]> res;
         PriorityQueue<State> fringe = new PriorityQueue<>();
-        State state = new State(initialState, null);
+        State state = new State(initialState, null, this.heuristic, 0);
         fringe.add(state);
         while (!fringe.isEmpty()) {
             State st = fringe.poll();
             explored.add(st);
             if (checkGoalState(st.getNumbers())) break;
             for (int[] i : st.getAdjacent()) {
-                if (notExplored(explored, i)) fringe.add(new State(i, st, heuristic.setHeuristic(i)));
+                State temp = new State(i, st, heuristic.setHeuristic(i), st.getCostG() + 1);
+                if (notExplored(explored, i) && !fringe.contains(temp)) {
+                    fringe.add(temp);
+                }
             }
         }
         res = getGoalPath(explored);
