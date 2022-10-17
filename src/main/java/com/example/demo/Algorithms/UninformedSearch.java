@@ -5,9 +5,19 @@ import com.example.demo.State;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class UninformedSearch {
+    private static ArrayList<Integer> convertArrayToList(int[] array) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int num : array) {
+            list.add(num);
+        }
+        return list;
+    }
+
     public static ArrayList<int[]> solve(int[] initialPuzzle, IFringe fringe) {
+        HashSet<ArrayList<Integer>> visited = new HashSet<>();
         State initialState = new State(initialPuzzle, null);
         State goalState = null;
         fringe.push(initialState);
@@ -17,6 +27,8 @@ public class UninformedSearch {
                 goalState = currState;
                 break;
             }
+            if(visited.contains(convertArrayToList(currState.getNumbers()))) continue;
+            visited.add(convertArrayToList(currState.getNumbers()));
             ArrayList<int[]> nextStates = currState.getAdjacent();
             for(int[] nextState : nextStates) {
                 State state = new State(nextState, currState);
