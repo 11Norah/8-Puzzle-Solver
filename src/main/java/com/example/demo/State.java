@@ -1,4 +1,5 @@
 package com.example.demo;
+
 import com.example.demo.Heuristics.IHeuristic;
 
 import java.awt.*;
@@ -11,20 +12,24 @@ public class State implements Comparable<State> {
     private final int[] numbers;
     private final ArrayList<int[]> adjacent;
     private double heuristicCost;
+    private double costG;
+    private double totalCost;
     private final State parent;
     private int emptySlot;
 
 
-
-    public State(int[] numbers, State parent, IHeuristic heuristic) {
+    public State(int[] numbers, State parent, IHeuristic heuristic, double costG) {
         this.numbers = numbers;
         this.matrix = new int[3][3];
         adjacent = new ArrayList<>();
         this.parent = parent;
         heuristicCost = heuristic.getHeuristic();
+        this.costG = costG;
+        this.totalCost = costG + heuristicCost;
         getMatrix();
         detectEmptySlot();
         generateAdjacent();
+
     }
 
     public State(int[] numbers, State parent) {
@@ -116,16 +121,32 @@ public class State implements Comparable<State> {
 
     public boolean isGoalState() {
         int turn = 0;
-        for(int num : numbers) {
-            if(turn != num) return false;
+        for (int num : numbers) {
+            if (turn != num) return false;
             turn++;
         }
         return true;
     }
 
+    public double getCostG() {
+        return costG;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setCostG(double costG) {
+        this.costG = costG;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
     @Override
     public int compareTo(State o) {
-        return Double.compare(this.heuristicCost, o.heuristicCost);
+        return Double.compare(this.totalCost, o.totalCost);
 
     }
 }
