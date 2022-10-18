@@ -16,8 +16,11 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import static java.lang.Math.pow;
+
 public class Controller {
     ArrayList<int[]> result;
+    long startTime,endTime,totalTime;
     @FXML
     private Label zero ;
 
@@ -122,10 +125,11 @@ public class Controller {
 
     void display_values(){
         nodesExpanded.setText("123");//values from algorithm is applied
-        runningTime.setText("17118");
+        runningTime.setText(String.valueOf(this.totalTime));
         searchDepth.setText("1771");
-        cost.setText("118");
+        cost.setText(String.valueOf(this.result.size()-1));
     }
+
     void display_array(int[] arr){
         zero.setVisible(true);
         one.setVisible(true);
@@ -205,33 +209,43 @@ public class Controller {
                     System.out.println("ana gwa");
                     puzzleSolver bfs_result = new bfs();
                     System.out.println(this.arr.length);
-                    System.out.println(arr[0] + arr[1] + arr[2] + arr[3]);
+                    startTime = System.nanoTime()/(long)pow(10,3);
                     this.result = bfs_result.solve(arr);
+                    endTime   = System.nanoTime()/(long)pow(10,3);
+                    this.totalTime = endTime - startTime;
                     System.out.println("Size result :" + this.result.size());
                 } else if (alg.equals("A*(Manhattan)")) {
                     System.out.println("ana gwa");
                     IHeuristic manh = new Manhattan(arr);
                     puzzleSolver a_result = new AStarSolver(manh);
                     System.out.println(this.arr.length);
-                    System.out.println(arr[0] + arr[1] + arr[2] + arr[3]);
+                    startTime = System.nanoTime()/(long)pow(10,3);
                     this.result = a_result.solve(arr);
+                    endTime   = System.nanoTime()/(long)pow(10,3);
+                    this.totalTime = endTime - startTime;
                     Collections.reverse(this.result);
                     System.out.println("Size result :" + this.result.size());
+
                 } else if (alg.equals("A*(Euclidean)")) {
                     System.out.println("ana gwa");
                     IHeuristic Euc = new Euclidean(arr);
                     puzzleSolver a_result = new AStarSolver(Euc);
-                    System.out.println(this.arr.length);
-                    System.out.println(arr[0] + arr[1] + arr[2] + arr[3]);
+                    //calculating running time
+                    startTime = System.nanoTime()/(long)pow(10,3);
                     this.result = a_result.solve(arr);
+                    endTime   = System.nanoTime()/(long)pow(10,3);
+                    this.totalTime = endTime - startTime;
                     Collections.reverse(this.result);
                     System.out.println("Size result :" + this.result.size());
+
                 } else if (alg.equals("DFS")) {
                     System.out.println("ana gwa");
                     puzzleSolver dfs_result = new dfs();
                     System.out.println(this.arr.length);
-                    System.out.println(arr[0] + arr[1] + arr[2] + arr[3]);
+                    startTime = System.nanoTime()/(long)pow(10,3);
                     this.result = dfs_result.solve(arr);
+                    endTime   = System.nanoTime()/(long)pow(10,3);
+                    this.totalTime = endTime - startTime;
                     System.out.println("Size result :" + this.result.size());
                 }
                 System.out.println("tl3t");
