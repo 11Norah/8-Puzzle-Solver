@@ -1,56 +1,49 @@
 package com.example.demo.Algorithms;
 
+import com.example.demo.Fringe.AStarFringe;
 import com.example.demo.Heuristics.IHeuristic;
-import com.example.demo.State;
+import com.example.demo.States.State;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class AStarSolver implements puzzleSolver {
 
     IHeuristic heuristic;
+    ArrayList<State> explored;
+    ArrayList<String> res;
 
     public AStarSolver(IHeuristic heuristic) {
         this.heuristic = heuristic;
+        this.explored = new ArrayList<>();
     }
 
-    boolean compareArrays(int[] arr1, int[] arr2) {
-        for (int i = 0; i < 9; i++) {
-            if (arr1[i] != arr2[i]) return false;
-        }
-        return true;
-    }
-
-    boolean notExplored(ArrayList<State> explored, int[] arr) {
+    boolean notExplored(ArrayList<State> explored, String numbers) {
         for (State i : explored) {
-            if (compareArrays(i.getNumbers(), arr)) return false;
+            if (i.getNumbers().equals(numbers)) return false;
         }
         return true;
     }
 
-    public boolean checkGoalState(int[] numbers) {
-        int c = 0;
-        for (int i : numbers) {
-            if (i != c++) return false;
-        }
-        return true;
-    }
 
-    @Override
-    public ArrayList<int[]> solve(int[] initialState) {
-        ArrayList<State> explored = new ArrayList<>();
-        ArrayList<int[]> res;
-        PriorityQueue<State> fringe = new PriorityQueue<>();
+   // @Override
+    public ArrayList<String> solve(String initialState) {
+        AStarFringe fringe = new AStarFringe();
         State state = new State(initialState, null, this.heuristic, 0);
-        fringe.add(state);
-        while (!fringe.isEmpty()) {
-            State st = fringe.poll();
+        fringe.push(state);
+        while (!fringe.empty()) {
+            State st = fringe.pop();
             explored.add(st);
-            if (checkGoalState(st.getNumbers())) break;
-            for (int[] i : st.getAdjacent()) {
+            if (st.isGoalState()) break;
+            for (String i : st.getAdjacent()) {
                 State temp = new State(i, st, heuristic.setHeuristic(i), st.getCostG() + 1);
-                if (notExplored(explored, i) && !fringe.contains(temp)) {
-                    fringe.add(temp);
+                State inFringe = fringe.containState(temp);
+                if (notExplored(explored, i) && inFringe == null) {
+                    fringe.push(temp);
+                } else if (inFringe != null) {
+                    if (inFringe.getTotalCost() > temp.getTotalCost()) {
+                        fringe.remove(inFringe);
+                        fringe.push(temp);
+                    }
                 }
             }
         }
@@ -58,9 +51,8 @@ public class AStarSolver implements puzzleSolver {
         return res;
     }
 
-
-    private ArrayList<int[]> getGoalPath(ArrayList<State> explored) {
-        ArrayList<int[]> res = new ArrayList<>();
+    private ArrayList<String> getGoalPath(ArrayList<State> explored) {
+        ArrayList<String> res = new ArrayList<>();
         State parent;
         int i = explored.size() - 1;
         while (i >= 0) {
