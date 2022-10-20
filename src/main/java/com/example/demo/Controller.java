@@ -13,6 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 //import com.example.demo.Algorithms.puzzleSolver;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -201,6 +204,8 @@ public class Controller {
             display_array(this.result.get(this.counter));}
         if(this.counter==0){previous.setDisable(true);}
     }
+
+    int count=0;
     @FXML
     protected void SetInitialState() {
 
@@ -230,6 +235,7 @@ public class Controller {
                     IHeuristic manh = new Manhattan();
                     AStarSolver a_result = new AStarSolver();
                     System.out.println(this.state.length());
+                    this.result = a_result.solve(state,manh);
                     startTime = System.nanoTime()/(long)pow(10,3);
                     this.result = a_result.solve(state,manh);
                     endTime   = System.nanoTime()/(long)pow(10,3);
@@ -244,6 +250,7 @@ public class Controller {
                     GoalState goal=new GoalState();
                     IHeuristic Euc = new Euclidean();
                     AStarSolver a_result = new AStarSolver();
+                    this.result = a_result.solve(state,Euc);
                     //calculating running time
                     startTime = System.nanoTime()/(long)pow(10,3);
                     this.result = a_result.solve(state,Euc);
@@ -269,7 +276,27 @@ public class Controller {
 
                 //enabling next button
                 next.setDisable(false);
+                //enabling values
+                display_values();
             }else {alert_error("Insolvable initial state");}
-            display_values();
+
+
+            //path to goal written in text file
+            try {
+                count++;
+                File myObj = new File("Example "+count+".txt");
+                FileWriter myWriter = new FileWriter("Example "+count+".txt");
+                for (int i=0;i<this.result.size();i++){
+                    String temp=this.result.get(i);
+                    myWriter.write( "{ "+temp.charAt(0)+", "+temp.charAt(1)+", "+temp.charAt(2)+", "+
+                            temp.charAt(3)+", "+temp.charAt(4)+", "+temp.charAt(5)+
+                            ", "+temp.charAt(6)+", "+temp.charAt(7)+", "+temp.charAt(8)+"}");
+                    myWriter.write("\n");
+                }
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();}
         }}
 }
