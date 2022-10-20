@@ -1,14 +1,17 @@
 package com.example.demo;
 
 import com.example.demo.Algorithms.AStarSolver;
-import com.example.demo.Algorithms.bfs;
-import com.example.demo.Algorithms.dfs;
+//import com.example.demo.Algorithms.bfs;
+//import com.example.demo.Algorithms.dfs;
 import com.example.demo.Heuristics.Euclidean;
 import com.example.demo.Heuristics.IHeuristic;
+//import com.example.demo.Heuristics.Manhattan;
 import com.example.demo.Heuristics.Manhattan;
+import com.example.demo.States.GoalState;
+import com.example.demo.States.State;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import com.example.demo.Algorithms.puzzleSolver;
+//import com.example.demo.Algorithms.puzzleSolver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +22,8 @@ import java.util.regex.Pattern;
 import static java.lang.Math.pow;
 
 public class Controller {
-    ArrayList<int[]> result;
+    ArrayList<String> result;
+    ArrayList<State> exploredd;
     long startTime,endTime,totalTime;
     @FXML
     private Label zero ;
@@ -58,19 +62,20 @@ public class Controller {
     @FXML
     private Label nodesExpanded;
     @FXML
-     protected void display(){
+    protected void display(){
         // populate algorithm combo box with item choices.
         AlgorithmsCombo.getItems().setAll("DFS", "BFS", "A*(Manhattan)","A*(Euclidean)");
     }
-    private int[] arr=new int[9];
-    public boolean checkIfSolvable(int[] initialState) {
+    private String state;
+    public boolean checkIfSolvable(String  initialState) {
         int inversions = 0;
         for (int i = 0; i < 8; i++)
             for (int j = i + 1; j < 9; j++)
-                if (initialState[i] != 0 && initialState[j] != 0 && initialState[i] > initialState[j])
+                if (initialState.charAt(i) != '0' && initialState.charAt(j) != '0' && (int)(initialState.charAt(i)) > (int)initialState.charAt(j))
                     inversions++;
         return inversions % 2 == 0;
     }
+
     private void alert_error(String message){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Invalid input ");
@@ -78,7 +83,8 @@ public class Controller {
         alert.setContentText(message);
         alert.show();
     }
-    private boolean parse_input(){
+
+    /*private boolean parse_input(){
         if(Pattern.matches("(\\d|,)*",textfield.getText())){
             System.out.println(AlgorithmsCombo.getValue());
             //setting initial array to be displayed
@@ -95,45 +101,46 @@ public class Controller {
             return false;
         }
 
-    }
+    }*/
     private boolean inputValidation(){
 
-        if(!textfield.getText().isEmpty() && Pattern.matches("([0-8],){8}[0-8]",textfield.getText())){
+        //if(!textfield.getText().isEmpty() && Pattern.matches("([0-8],){8}[0-8]",textfield.getText())){
+        if(!textfield.getText().isEmpty() && Pattern.matches("([0-8]){9}",textfield.getText())){
             System.out.println("correct");
-            if(parse_input()){
+            this.state=textfield.getText();
             //checking repetition
             for(int i=0;i<9;i++){
-                int searching=arr[i];
+                char searching=this.state.charAt(i);
                 for(int j=0;j<9;j++){
                     if(j!=i){
-                    if(arr[j]==searching){
-                        alert_error("Repeated numbers are not allowed in initial state of 8-puzzle");
-                        return false; //error repeated number found
-                         }}
+                        if(this.state.charAt(j)==searching){
+                            alert_error("Repeated numbers are not allowed in initial state of 8-puzzle");
+                            return false; //error repeated number found
+                        }}
                 }
-            }}else{return false;}
+            }
             //check if algorithm is chosen
             if(AlgorithmsCombo.getValue()==null){
                 alert_error("Choose algorithm ,please"); return false;}
             return true;
         }
-        else{alert_error("Invalid Initial state ! Enter it as following (ex :1,2,3,4,6,8,7,0,5)");
+        else{alert_error("Invalid Initial state ! Enter it as following (ex :123468705)");
             System.out.println("incorrect");
             return false;
         }
     }
 
     void display_values(){
-        nodesExpanded.setText("123");//values from algorithm is applied
+        nodesExpanded.setText(String.valueOf(this.exploredd.size()));//values from algorithm is applied
         runningTime.setText(String.valueOf(this.totalTime));
-        searchDepth.setText("1771");
+        searchDepth.setText(String.valueOf(this.result.size()-1));
         cost.setText(String.valueOf(this.result.size()-1));
     }
 
-    void display_array(int[] arr){
+    void display_array(String arr){
         zero.setVisible(true);
         one.setVisible(true);
-         two.setVisible(true);
+        two.setVisible(true);
         three.setVisible(true);
         four.setVisible(true);
         five.setVisible(true);
@@ -141,8 +148,8 @@ public class Controller {
         seven.setVisible(true);
         eight.setVisible(true);
         int zero_index=-1;
-        for(int i=0;i<arr.length;i++){
-            if(arr[i]==0){zero_index=i; break;}
+        for(int i=0;i<arr.length();i++){
+            if(arr.charAt(i)=='0'){zero_index=i; break;}
 
         }
         switch (zero_index){
@@ -156,16 +163,16 @@ public class Controller {
             case 7: seven.setVisible(false);  break;
             case 8: eight.setVisible(false);  break;
         }
-        zero.setText(String.valueOf(arr[0])); //first num displayed from algorithm
+        zero.setText(String.valueOf(arr.charAt(0))); //first num displayed from algorithm
 
-        one.setText(String.valueOf(arr[1]));
-        two.setText(String.valueOf(arr[2]));
-        three.setText(String.valueOf(arr[3]));
-        four.setText(String.valueOf(arr[4]));
-        five.setText(String.valueOf(arr[5]));
-        six.setText(String.valueOf(arr[6]));
-        seven.setText(String.valueOf(arr[7]));
-        eight.setText(String.valueOf(arr[8]));
+        one.setText(String.valueOf(arr.charAt(1)));
+        two.setText(String.valueOf(arr.charAt(2)));
+        three.setText(String.valueOf(arr.charAt(3)));
+        four.setText(String.valueOf(arr.charAt(4)));
+        five.setText(String.valueOf(arr.charAt(5)));
+        six.setText(String.valueOf(arr.charAt(6)));
+        seven.setText(String.valueOf(arr.charAt(7)));
+        eight.setText(String.valueOf(arr.charAt(8)));
 
     }
     int counter=0;
@@ -173,12 +180,12 @@ public class Controller {
     protected  void next(){
         this.counter++;
         if(this.counter< this.result.size()){
-            System.out.println("nexxxxxxxxxxxxxxxt "+this.counter);
+            //System.out.println("nexxxxxxxxxxxxxxxt "+this.counter);
             display_array(this.result.get(this.counter));
             // next.setDisable(false);
         }
         //at the last step,there is a flag to allow the program take the values needed from the algorithm function
-       //then displaying these values
+        //then displaying these values
 
         if(this.counter==this.result.size()-1){
             next.setDisable(true); display_values();}
@@ -187,7 +194,7 @@ public class Controller {
     }
     @FXML
     protected void previous(){
-     this.counter--;
+        this.counter--;
 
         if(this.counter< this.result.size() && this.counter>-1){
 
@@ -202,54 +209,63 @@ public class Controller {
         // start sending it to functions and display initial state
         this.counter=0;
         if(inputValidation()) {
-            if(checkIfSolvable(arr)) {
+            if(checkIfSolvable(state)) {
                 textfield.setText("");
                 String alg = AlgorithmsCombo.getValue().toString();
                 if (alg.equals("BFS")) {
                     System.out.println("ana gwa");
-                    puzzleSolver bfs_result = new bfs();
-                    System.out.println(this.arr.length);
+                    // puzzleSolver bfs_result = new bfs();
+                    System.out.println(this.state.length());
                     startTime = System.nanoTime()/(long)pow(10,3);
-                    this.result = bfs_result.solve(arr);
+                    // this.result = bfs_result.solve(.........);
                     endTime   = System.nanoTime()/(long)pow(10,3);
                     this.totalTime = endTime - startTime;
-                    System.out.println("Size result :" + this.result.size());
-                } else if (alg.equals("A*(Manhattan)")) {
-                    System.out.println("ana gwa");
-                    IHeuristic manh = new Manhattan(arr);
-                    puzzleSolver a_result = new AStarSolver(manh);
-                    System.out.println(this.arr.length);
-                    startTime = System.nanoTime()/(long)pow(10,3);
-                    this.result = a_result.solve(arr);
-                    endTime   = System.nanoTime()/(long)pow(10,3);
-                    this.totalTime = endTime - startTime;
-                    Collections.reverse(this.result);
                     System.out.println("Size result :" + this.result.size());
 
-                } else if (alg.equals("A*(Euclidean)")) {
+                }
+                else if (alg.equals("A*(Manhattan)")) {
                     System.out.println("ana gwa");
-                    IHeuristic Euc = new Euclidean(arr);
-                    puzzleSolver a_result = new AStarSolver(Euc);
-                    //calculating running time
+                    GoalState goal=new GoalState();
+
+                    IHeuristic manh = new Manhattan(state,goal);
+                    AStarSolver a_result = new AStarSolver(manh);
+                    System.out.println(this.state.length());
                     startTime = System.nanoTime()/(long)pow(10,3);
-                    this.result = a_result.solve(arr);
+                    this.result = a_result.solve(state);
                     endTime   = System.nanoTime()/(long)pow(10,3);
                     this.totalTime = endTime - startTime;
                     Collections.reverse(this.result);
+                    this.exploredd=a_result.explored;
+                    //System.out.println("Size result :" + this.result.size());
+
+                }
+                else if (alg.equals("A*(Euclidean)")) {
+                    System.out.println("ana gwa");
+                    GoalState goal=new GoalState();
+                    IHeuristic Euc = new Euclidean(state,goal);
+                    AStarSolver a_result = new AStarSolver(Euc);
+                    //calculating running time
+                    startTime = System.nanoTime()/(long)pow(10,3);
+                    this.result = a_result.solve(state);
+                    endTime   = System.nanoTime()/(long)pow(10,3);
+                    this.totalTime = endTime - startTime;
+                    Collections.reverse(this.result);
+                    this.exploredd=a_result.explored;
+
                     System.out.println("Size result :" + this.result.size());
 
                 } else if (alg.equals("DFS")) {
                     System.out.println("ana gwa");
-                    puzzleSolver dfs_result = new dfs();
-                    System.out.println(this.arr.length);
+                    // puzzleSolver dfs_result = new dfs();
+                    System.out.println(this.state.length());
                     startTime = System.nanoTime()/(long)pow(10,3);
-                    this.result = dfs_result.solve(arr);
+                    //this.result = dfs_result.solve(state);
                     endTime   = System.nanoTime()/(long)pow(10,3);
                     this.totalTime = endTime - startTime;
                     System.out.println("Size result :" + this.result.size());
                 }
                 System.out.println("tl3t");
-                display_array(arr);
+                display_array(this.state);
 
                 //enabling next button
                 next.setDisable(false);
