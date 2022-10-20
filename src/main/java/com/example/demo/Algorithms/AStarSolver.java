@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AStarSolver {
+     public int exp_count=0;
 
 
     // @Override
@@ -44,6 +45,7 @@ public class AStarSolver {
                 }
             }
         }
+        this.exp_count= explored.size();
         res = getGoalPath(explored);
         return res;
     }
