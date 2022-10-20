@@ -9,5 +9,4 @@ public interface IFringe {
 
     boolean empty();
 
-    void remove(State st);
 }

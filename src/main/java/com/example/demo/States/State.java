@@ -17,6 +17,7 @@ public class State implements Comparable<State> {
     public State(String numbers, State parent) {
         this.numbers = numbers;
         this.parent = parent;
+        detectEmptySlot();
     }
 
     public void setCostG(double costG) {
@@ -87,12 +88,8 @@ public class State implements Comparable<State> {
 
 
     public boolean isGoalState() {
-        char turn = '0';
-        for (int i = 0; i < numbers.length(); i++) {
-            if (turn != numbers.charAt(i)) return false;
-            turn++;
-        }
-        return true;
+        final String goal = "012345678";
+        return numbers.equals(goal);
     }
 
     public double getCostG() {

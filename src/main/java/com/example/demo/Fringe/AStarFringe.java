@@ -41,7 +41,6 @@ public class AStarFringe implements IFringe {
         return priorityQueue.isEmpty();
     }
 
-    @Override
     public void remove(State st) {
         pqEntries.remove(st.getNumbers());
         priorityQueue.remove(st);

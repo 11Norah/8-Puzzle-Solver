@@ -1,6 +1,6 @@
 package com.example.demo.Fringe;
 
-import com.example.demo.State;
+import com.example.demo.States.State;
 
 import java.util.LinkedList;
 import java.util.Queue;
