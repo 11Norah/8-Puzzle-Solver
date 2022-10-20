@@ -23,7 +23,7 @@ import static java.lang.Math.pow;
 
 public class Controller {
     ArrayList<String> result;
-    ArrayList<State> exploredd;
+    int exploredd;
     long startTime,endTime,totalTime;
     @FXML
     private Label zero ;
@@ -131,7 +131,7 @@ public class Controller {
     }
 
     void display_values(){
-        nodesExpanded.setText(String.valueOf(this.exploredd.size()));//values from algorithm is applied
+        nodesExpanded.setText(String.valueOf(this.exploredd));//values from algorithm is applied
         runningTime.setText(String.valueOf(this.totalTime));
         searchDepth.setText(String.valueOf(this.result.size()-1));
         cost.setText(String.valueOf(this.result.size()-1));
@@ -188,7 +188,7 @@ public class Controller {
         //then displaying these values
 
         if(this.counter==this.result.size()-1){
-            next.setDisable(true); display_values();}
+            next.setDisable(true); }
         if(this.counter!=0){previous.setDisable(false);}
 
     }
@@ -227,30 +227,30 @@ public class Controller {
                     System.out.println("ana gwa");
                     GoalState goal=new GoalState();
 
-                    IHeuristic manh = new Manhattan(state,goal);
-                    AStarSolver a_result = new AStarSolver(manh);
+                    IHeuristic manh = new Manhattan();
+                    AStarSolver a_result = new AStarSolver();
                     System.out.println(this.state.length());
                     startTime = System.nanoTime()/(long)pow(10,3);
-                    this.result = a_result.solve(state);
+                    this.result = a_result.solve(state,manh);
                     endTime   = System.nanoTime()/(long)pow(10,3);
                     this.totalTime = endTime - startTime;
                     Collections.reverse(this.result);
-                    this.exploredd=a_result.explored;
+                    this.exploredd=a_result.exp_count;
                     //System.out.println("Size result :" + this.result.size());
 
                 }
                 else if (alg.equals("A*(Euclidean)")) {
                     System.out.println("ana gwa");
                     GoalState goal=new GoalState();
-                    IHeuristic Euc = new Euclidean(state,goal);
-                    AStarSolver a_result = new AStarSolver(Euc);
+                    IHeuristic Euc = new Euclidean();
+                    AStarSolver a_result = new AStarSolver();
                     //calculating running time
                     startTime = System.nanoTime()/(long)pow(10,3);
-                    this.result = a_result.solve(state);
+                    this.result = a_result.solve(state,Euc);
                     endTime   = System.nanoTime()/(long)pow(10,3);
                     this.totalTime = endTime - startTime;
                     Collections.reverse(this.result);
-                    this.exploredd=a_result.explored;
+                    this.exploredd=a_result.exp_count;
 
                     System.out.println("Size result :" + this.result.size());
 
@@ -270,6 +270,6 @@ public class Controller {
                 //enabling next button
                 next.setDisable(false);
             }else {alert_error("Insolvable initial state");}
-
+            display_values();
         }}
 }
