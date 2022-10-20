@@ -8,68 +8,60 @@ import java.util.ArrayList;
 public class State implements Comparable<State> {
 
     private final String numbers;
-    private final ArrayList<String> adjacent;
-    private final double heuristicCost;
     private double costG;
     private double totalCost;
     private final State parent;
     private int emptySlot;
 
 
-    public State(String numbers, State parent, IHeuristic heuristic, double costG) {
+    public State(String numbers, State parent) {
         this.numbers = numbers;
-        this.adjacent = new ArrayList<>();
         this.parent = parent;
-        this.heuristicCost = heuristic.getHeuristic();
+    }
+
+    public void setCostG(double costG) {
+        this.costG = costG;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public void setEmptySlot(int emptySlot) {
+        this.emptySlot = emptySlot;
+    }
+
+    public State(String numbers, State parent, double costG, double heuristicCost) {
+        long startTime = System.nanoTime();
+        this.numbers = numbers;
+        this.parent = parent;
         this.costG = costG;
         this.totalCost = costG + heuristicCost;
         detectEmptySlot();
-        generateAdjacent();
+        long endTime = System.nanoTime();
+    //    System.out.println("state constructor =" + ((endTime - startTime) / 1000));
     }
 
-    private boolean check(int x, int y) {
-        return x >= 0 && x < 3 && y >= 0 && y < 3;
-    }
 
-    private String writeState(String state, int emptyIndex, int indexToSwap) {
-        char swapped = state.charAt(indexToSwap);
-        String newState = "";
-        for (int i = 0; i <= 8; i++) {
-            //If current index is empty, replace swapped with it
-            if (i == emptyIndex) {
-                newState += swapped;
-            }
-            //If current index is swapped char, reverse it with empty one
-            else if (i == indexToSwap) {
-                newState += "0";
-            }
-            //Otherwise, place the character at the current index at the same index (does not move)
-            else {
-                newState += state.charAt(i);
-            }
-        }
-
-        return newState;
-    }
-
-    public double getHeuristicCost() {
-        return heuristicCost;
-    }
-
-    private void generateAdjacent() {
+    public ArrayList<String> generateAdjacent() {
+        ArrayList<String> adjacent = new ArrayList<>();
+        long startTime = System.nanoTime();
         int[] adj = new int[]{1, -1, 3, -3};
         char numToSwap;
         int tempInd;
         String adjacentState;
         for (int i = 0; i < 4; i++) {
             tempInd = emptySlot + adj[i];
-            if (tempInd >= 0 && tempInd < 9 && !((adj[i] == 1 || adj[i] == -1 )&&(((tempInd) / 3) != (emptySlot / 3)))) {
+            if (tempInd >= 0 && tempInd < 9 && !((adj[i] == 1 || adj[i] == -1) && (((tempInd) / 3) != (emptySlot / 3)))) {
                 numToSwap = this.numbers.charAt(tempInd);
                 adjacentState = numbers.substring(0, emptySlot) + numToSwap + numbers.substring(emptySlot + 1);
                 adjacentState = adjacentState.substring(0, tempInd) + '0' + adjacentState.substring(tempInd + 1);
-                this.adjacent.add(adjacentState);
+                adjacent.add(adjacentState);
             }
         }
+      //  System.out.println("generateAdjacent = " + (((System.nanoTime() - startTime) / 1000)));
+        return adjacent;
+
     }
 
     public State getParent() {
@@ -82,18 +74,17 @@ public class State implements Comparable<State> {
     }
 
     private void detectEmptySlot() {
+      //  long startTime = System.nanoTime();
         for (int i = 0; i < 9; i++) {
             if ((int) numbers.charAt(i) == '0') {
                 emptySlot = i;
                 break;
             }
         }
+     //   System.out.println("DetectEmptySlot = " + (((System.nanoTime() - startTime) / 1000)));
     }
 
 
-    public ArrayList<String> getAdjacent() {
-        return adjacent;
-    }
 
     public boolean isGoalState() {
         char turn = '0';
@@ -111,7 +102,6 @@ public class State implements Comparable<State> {
     public double getTotalCost() {
         return totalCost;
     }
-
 
     @Override
     public int compareTo(State o) {

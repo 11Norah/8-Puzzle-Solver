@@ -1,42 +1,28 @@
 package com.example.demo.Heuristics;
 
-import com.example.demo.States.GoalState;
-
-import java.awt.*;
-import java.util.HashMap;
-
 public class Euclidean implements IHeuristic {
-    private double heuristic;
-    private final HashMap<Integer, Point> goal;
+    private final int[][] goal;
 
-    public Euclidean(String numbers, GoalState goal) {
-        this.goal = goal.getGoal();
-        heuristic = 0;
-        generateHeuristic(numbers);
+    public Euclidean() {
+        goal = new int[][]{{0,0},{0,1},{0,2},{1,0},{1,1},{1,2},{2,0},{2,1},{2,2}};
     }
 
-    @Override
-    public Euclidean setHeuristic(String numbers) {
-        heuristic = 0;
-        generateHeuristic(numbers);
-        return this;
-    }
 
-    @Override
-    public double getHeuristic() {
-        return heuristic;
-    }
-
-    private void generateHeuristic(String numbers) {
+    public double generateHeuristic(String numbers) {
+        long start = System.nanoTime();
         int number;
-        Point goalIndex;
+        int[] goalIndex;
+        double heuristic = 0;
         for (int i = 0; i < 9; i++) {
             number = numbers.charAt(i);
             int xIndex = i / 3;
             int yIndex = i % 3;
-            goalIndex = goal.get(number - '0');
-            heuristic += euclideanDistance(xIndex, yIndex, goalIndex.x, goalIndex.y);
+            goalIndex = goal[number-'0'];
+            heuristic += euclideanDistance(xIndex, yIndex, goalIndex[0], goalIndex[1]);
         }
+        long end = System.nanoTime() ;
+      //  System.out.println("Heuristics generation = " + (((end - start) /1000)));
+        return heuristic;
     }
 
     private double euclideanDistance(int x1, int y1, int x2, int y2) {
