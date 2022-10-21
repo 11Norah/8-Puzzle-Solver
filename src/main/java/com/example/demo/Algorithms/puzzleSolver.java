@@ -1,7 +1,10 @@
 package com.example.demo.Algorithms;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public interface puzzleSolver {
-    ArrayList<String> solve(String initialPuzzle);
+    void solve(String initialPuzzle);
+    ArrayList<String> getSolution();
+    HashSet<String> getExplored();
 }

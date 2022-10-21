@@ -7,11 +7,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class UninformedSearch {
-    public static ArrayList<String> solve(String initialPuzzle, IFringe fringe) {
+public class UninformedSearcher {
 
-        //set containing explored states.
-        HashSet<String> visited = new HashSet<>();
+    HashSet<String> visited;
+    ArrayList<String> solution;
+
+    IFringe fringe;
+
+    public UninformedSearcher(IFringe fringe) {
+        visited = new HashSet<>(); //set containing explored states.
+        solution = new ArrayList<>();
+        this.fringe = fringe;
+    }
+
+    public void solve(String initialPuzzle) {
 
         //set keeping track of states inside the fringe.
         HashSet<String> fringeSet = new HashSet<>();
@@ -45,13 +54,19 @@ public class UninformedSearch {
 
         }
 
-        ArrayList<String> solution = new ArrayList<>();
         State currState = goalState;
         while(currState != null) {
             solution.add(currState.getNumbers());
             currState = currState.getParent();
         }
         Collections.reverse(solution);
+    }
+
+    public ArrayList<String> getSolution() {
         return solution;
+    }
+
+    public HashSet<String> getExplored() {
+        return visited;
     }
 }
