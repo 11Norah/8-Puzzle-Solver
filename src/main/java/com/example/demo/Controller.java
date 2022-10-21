@@ -3,6 +3,8 @@ package com.example.demo;
 import com.example.demo.Algorithms.AStarSolver;
 //import com.example.demo.Algorithms.bfs;
 //import com.example.demo.Algorithms.dfs;
+import com.example.demo.Algorithms.BfsSolver;
+import com.example.demo.Algorithms.DfsSolver;
 import com.example.demo.Heuristics.Euclidean;
 import com.example.demo.Heuristics.IHeuristic;
 //import com.example.demo.Heuristics.Manhattan;
@@ -101,24 +103,7 @@ public class Controller {
         alert.show();
     }
 
-    /*private boolean parse_input(){
-        if(Pattern.matches("(\\d|,)*",textfield.getText())){
-            System.out.println(AlgorithmsCombo.getValue());
-            //setting initial array to be displayed
-            if(textfield.getText().contains(",,")){alert_error("Two commas aren't allowed"); return false;}
-            else if(textfield.getText().length()>17){alert_error("9 numbers only "); return false;}
-            else{
-            String[] array= ( textfield.getText().split(","));
-            for(int i=0;i< array.length;i++){
-                arr[i]=Integer.valueOf(array[i]);
-            }return true;}}
-        //end of checking if the input contain unknown character
-        else{
-            alert_error("Numbers and commas only are allowed");
-            return false;
-        }
 
-    }*/
     private boolean inputValidation(){
 
         //if(!textfield.getText().isEmpty() && Pattern.matches("([0-8],){8}[0-8]",textfield.getText())){
@@ -234,13 +219,17 @@ public class Controller {
                 view.setDisable(false);
                 if (alg.equals("BFS")) {
                     System.out.println("ana gwa");
-                    // puzzleSolver bfs_result = new bfs();
+
                     System.out.println(this.state.length());
+                    BfsSolver solver = new BfsSolver();
                     startTime = System.nanoTime()/(long)pow(10,3);
-                    // this.result = bfs_result.solve(.........);
+                    solver.solve(state);
                     endTime   = System.nanoTime()/(long)pow(10,3);
                     this.totalTime = endTime - startTime;
+                    this.result = solver.getSolution();
+
                     System.out.println("Size result :" + this.result.size());
+                    this.exploredd=solver.getExplored().size();
 
                 }
                 else if (alg.equals("A*(Manhattan)")) {
@@ -278,15 +267,19 @@ public class Controller {
 
                 } else if (alg.equals("DFS")) {
                     System.out.println("ana gwa");
-                    // puzzleSolver dfs_result = new dfs();
+                    DfsSolver solver = new DfsSolver();
+
                     System.out.println(this.state.length());
                     startTime = System.nanoTime()/(long)pow(10,3);
-                    //this.result = dfs_result.solve(state);
+                    solver.solve(state);
+
                     endTime   = System.nanoTime()/(long)pow(10,3);
+                    this.result = solver.getSolution();
                     this.totalTime = endTime - startTime;
                     System.out.println("Size result :" + this.result.size());
+                    this.exploredd=solver.getExplored().size();
                 }
-                System.out.println("tl3t");
+
                 display_array(this.state);
 
                 //enabling next button
@@ -314,12 +307,19 @@ public class Controller {
                 System.out.println("An error occurred.");
                 e.printStackTrace();}
         }}
+
+
         @FXML
         protected void view(){    
             AnchorPane secondaryLayout = new AnchorPane();
            // secondaryLayout.setBackground(new Background(new BackgroundFill(Color.BLACK,null,null)));
           // secondaryLayout.setStyle("-fx-background-image: url('https://c4.wallpaperflare.com/wallpaper/651/896/1021/minimalist-purple-wallpaper-thumb.jpg')");
             secondaryLayout.setPrefSize(1530,800);
+            secondaryLayout.autosize();
+            secondaryLayout.getBorder();
+            secondaryLayout.maxHeight(1000);
+            secondaryLayout.maxWidth(1000);
+
             ScrollPane sp=new ScrollPane();    
             Group root=new Group();
             root.getChildren().addAll(sp); 
@@ -503,21 +503,6 @@ public class Controller {
             if(result.get(i).charAt(8)=='0'){
                 b9.setVisible(false);
             }
-           
-            //sp.setContent(rec);
-            // sp.setContent(b1);
-           /*  sp.setContent(b2);
-            sp.setContent(b3);
-            sp.setContent(b4);
-            sp.setContent(b5);
-            sp.setContent(b6);
-            sp.setContent(b7);
-            sp.setContent(b8);
-            sp.setContent(b9);*/
-           // root.getChildren().addAll(sp);
-
-            
-
              secondaryLayout.getChildren().add(rec);
     
             secondaryLayout.getChildren().add(b1);
