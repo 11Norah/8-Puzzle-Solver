@@ -62,4 +62,8 @@
     </font>
         <effect><DropShadow /></effect>
     </Button>
+    <Button fx:id="view" disable="true" layoutY="430.0" layoutX="500.0" mnemonicParsing="false" onAction="#view" style="-fx-background-color: #66B2FF;" text="view path">
+        <font>
+            <Font size="14.0" />
+        </font></Button>
 </AnchorPane>
