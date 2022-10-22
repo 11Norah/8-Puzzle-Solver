@@ -6,5 +6,5 @@ import java.util.HashSet;
 public interface puzzleSolver {
     void solve(String initialPuzzle);
     ArrayList<String> getSolution();
-    HashSet<String> getExplored();
+    int getExploredSize();
 }

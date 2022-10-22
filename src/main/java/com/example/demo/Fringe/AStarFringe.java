@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class AStarFringe implements IFringe {
-    private PriorityQueue<State> priorityQueue;
-    private HashMap<String,State> pqEntries;
+    private final PriorityQueue<State> priorityQueue;
+    private final HashMap<String,State> pqEntries;
 
     public AStarFringe() {
         priorityQueue = new PriorityQueue<>();
@@ -31,9 +31,9 @@ public class AStarFringe implements IFringe {
     @Override
     public State pop() {
         State peek = priorityQueue.poll();
+        assert peek != null;
         pqEntries.remove(peek.getNumbers());
         return peek;
-
     }
 
     @Override

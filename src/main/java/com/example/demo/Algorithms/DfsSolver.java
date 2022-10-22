@@ -21,19 +21,9 @@ public class DfsSolver implements puzzleSolver {
         return searcher.getSolution();
     }
 
-    public HashSet<String> getExplored() {
-        return searcher.getExplored();
+    public int getExploredSize() {
+        return searcher.getExplored().size();
     }
 
-    public static void main(String[] args) {
-        String puzzle = "125340678";
-        System.out.println("DFS Start!!");
-        DfsSolver solver = new DfsSolver();
-        solver.solve(puzzle);
-        ArrayList<String> solution = solver.getSolution();
-        for(String state : solution) {
-            System.out.println(state);
-        }
-    }
 
 }

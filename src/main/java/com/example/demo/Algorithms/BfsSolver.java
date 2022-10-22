@@ -12,6 +12,7 @@ public class BfsSolver implements puzzleSolver {
     public BfsSolver() {
         searcher = new UninformedSearcher(new QueueFringe());
     }
+
     public void solve(String initialPuzzle) {
         searcher.solve(initialPuzzle);
     }
@@ -20,18 +21,9 @@ public class BfsSolver implements puzzleSolver {
         return searcher.getSolution();
     }
 
-    public HashSet<String> getExplored() {
-        return searcher.getExplored();
+    public int getExploredSize() {
+        return searcher.getExplored().size();
     }
 
-    public static void main(String[] args) {
-        String puzzle = "125340678";
-        System.out.println("BFS Start!!");
-        BfsSolver solver = new BfsSolver();
-        solver.solve(puzzle);
-        ArrayList<String> solution = solver.getSolution();
-        for(String state : solution) {
-            System.out.println(state);
-        }
-    }
+
 }
