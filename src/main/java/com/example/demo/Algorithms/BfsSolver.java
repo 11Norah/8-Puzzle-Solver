@@ -3,7 +3,6 @@ package com.example.demo.Algorithms;
 import com.example.demo.Fringe.QueueFringe;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class BfsSolver implements puzzleSolver {
 
@@ -25,5 +24,8 @@ public class BfsSolver implements puzzleSolver {
         return searcher.getExplored().size();
     }
 
+    public int getMaxDepth() {
+        return searcher.getMaxDepth();
+    }
 
 }
