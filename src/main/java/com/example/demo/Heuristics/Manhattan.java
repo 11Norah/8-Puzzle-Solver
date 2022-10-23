@@ -9,7 +9,6 @@ public class Manhattan implements IHeuristic {
 
 
     public double generateHeuristic(String numbers) {
-        long start = System.nanoTime() ;
         int number;
         int[] goalIndex;
         double heuristic = 0;
@@ -20,8 +19,6 @@ public class Manhattan implements IHeuristic {
             goalIndex = goal[number - '0'];
             heuristic += manhattanDistance(xIndex, yIndex, goalIndex[0], goalIndex[1]);
         }
-        long end = System.nanoTime() ;
-      //  System.out.println("Heuristics generation = " + (((end - start) /1000)));
         return heuristic;
     }
 

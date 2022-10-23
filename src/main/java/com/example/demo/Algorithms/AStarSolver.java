@@ -10,14 +10,15 @@ import java.util.HashMap;
 public class AStarSolver {
 
 
-    // @Override
     public HashMap<String, State> solve(String initialState, IHeuristic heuristic) {
         HashMap<String, State> explored = new HashMap<>();
         AStarFringe frontier = new AStarFringe();
+        explored.put("maxDepth", new State(0));
         State state = new State(initialState, null, 0, heuristic.generateHeuristic(initialState));
         frontier.push(state);
         while (!frontier.empty()) {
             State st = frontier.pop();
+            if (explored.get("maxDepth").getCostG() < st.getCostG()) explored.put("maxDepth", st);
             explored.put(st.getNumbers(), st);
             if (st.isGoalState()) break;
             ArrayList<String> adjacents = st.generateAdjacent();
@@ -34,6 +35,7 @@ public class AStarSolver {
                 }
             }
         }
+
         return explored;
     }
 
