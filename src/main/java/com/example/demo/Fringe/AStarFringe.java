@@ -3,7 +3,6 @@ package com.example.demo.Fringe;
 import com.example.demo.States.State;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class AStarFringe implements IFringe {
@@ -41,8 +40,4 @@ public class AStarFringe implements IFringe {
         return priorityQueue.isEmpty();
     }
 
-    public void remove(State st) {
-        pqEntries.remove(st.getNumbers());
-        priorityQueue.remove(st);
-    }
 }

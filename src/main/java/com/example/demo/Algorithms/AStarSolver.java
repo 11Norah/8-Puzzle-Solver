@@ -29,7 +29,6 @@ public class AStarSolver {
                     frontier.push(temp);
                 } else if (inFrontier != null) {
                     if (inFrontier.getTotalCost() > temp.getTotalCost()) {
-                        frontier.remove(inFrontier);
                         frontier.push(temp);
                     }
                 }
