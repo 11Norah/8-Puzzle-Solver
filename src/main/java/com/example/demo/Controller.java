@@ -39,7 +39,7 @@ import static java.lang.Math.pow;
 
 public class Controller {
     ArrayList<String> result;
-    int exploredd;
+    int exploredd, maxx;
     long startTime, endTime, totalTime;
     @FXML
     private Label zero;
@@ -79,6 +79,8 @@ public class Controller {
     private Label searchDepth;
     @FXML
     private Label nodesExpanded;
+    @FXML
+    private Label maxDepth;
 
     @FXML
     protected void display() {
@@ -142,6 +144,7 @@ public class Controller {
         runningTime.setText(String.valueOf(this.totalTime));
         searchDepth.setText(String.valueOf(this.result.size() - 1));
         cost.setText(String.valueOf(this.result.size() - 1));
+        maxDepth.setText(String.valueOf(this.maxx));
     }
 
     void display_array(String arr) {
@@ -264,6 +267,7 @@ public class Controller {
                     this.result = solver.getSolution();
                     System.out.println("Size result :" + this.result.size());
                     this.exploredd = solver.getExploredSize();
+                    this.maxx=solver.getMaxDepth();
 
                 } else if (alg.equals("A*(Manhattan)")) {
                     System.out.println("ana gwa");
@@ -278,6 +282,8 @@ public class Controller {
                     this.totalTime = endTime - startTime;
                     Collections.reverse(this.result);
                     this.exploredd = a_result.getExploredSize();
+                    this.maxx=a_result.getMaxDepth();
+
                     //System.out.println("Size result :" + this.result.size());
 
                 } else if (alg.equals("A*(Euclidean)")) {
@@ -293,7 +299,8 @@ public class Controller {
                     this.totalTime = endTime - startTime;
                     Collections.reverse(this.result);
                     this.exploredd = a_result.getExploredSize();
-                    System.out.println("Size result :" + this.result.size());
+                    this.maxx=a_result.getMaxDepth();
+
 
                 } else if (alg.equals("DFS")) {
                     System.out.println("ana gwa");
@@ -308,6 +315,8 @@ public class Controller {
                     this.totalTime = endTime - startTime;
                     System.out.println("Size result :" + this.result.size());
                     this.exploredd = solver.getExploredSize();
+                    this.maxx=solver.getMaxDepth();
+
                 }
 
                 display_array(this.state);

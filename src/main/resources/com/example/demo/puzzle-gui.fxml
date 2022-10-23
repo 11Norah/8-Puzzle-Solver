@@ -33,13 +33,16 @@
   <!--labels for needed values-->
     <Label text="Cost of path :" layoutX="500.0" layoutY="100.0"    prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
     <Label fx:id="cost" layoutX="640.0" layoutY="100.0"    prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
-    <Label text="Search Depth :" layoutX="500.0" layoutY="150.0"   prefWidth="200.0" ><font><Font name="System Bold" size="15.0" /></font></Label>
-    <Label fx:id="searchDepth" layoutX="640.0" layoutY="150.0"   prefWidth="200.0" ><font><Font name="System Bold" size="15.0" /></font></Label>
-    <Label text="Running Time :" layoutX="500.0" layoutY="200.0"   prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
-    <Label fx:id="runningTime" layoutX="640.0" layoutY="200.0"   prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
-    <Label text="Nodes Expanded :" layoutX="500.0" layoutY="250.0"     prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
+    <Label text="Max Depth :" layoutX="500.0" layoutY="150.0"   prefWidth="200.0" ><font><Font name="System Bold" size="15.0" /></font></Label>
+    <Label fx:id="maxDepth" layoutX="640.0" layoutY="150.0"   prefWidth="200.0" ><font><Font name="System Bold" size="15.0" /></font></Label>
 
-    <Label fx:id="nodesExpanded" layoutX="640.0" layoutY="250.0"     prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
+    <Label text="Search Depth :" layoutX="500.0" layoutY="200.0"   prefWidth="200.0" ><font><Font name="System Bold" size="15.0" /></font></Label>
+    <Label fx:id="searchDepth" layoutX="640.0" layoutY="200.0"   prefWidth="200.0" ><font><Font name="System Bold" size="15.0" /></font></Label>
+    <Label text="Running Time :" layoutX="500.0" layoutY="250.0"   prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
+    <Label fx:id="runningTime" layoutX="640.0" layoutY="250.0"   prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
+    <Label text="Nodes Expanded :" layoutX="500.0" layoutY="300.0"     prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
+
+    <Label fx:id="nodesExpanded" layoutX="640.0" layoutY="300.0"     prefWidth="200.0"  ><font><Font name="System Bold" size="15.0" /></font></Label>
 
 
     <!--previous and next steps-->
