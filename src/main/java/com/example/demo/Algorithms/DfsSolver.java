@@ -3,7 +3,6 @@ package com.example.demo.Algorithms;
 import com.example.demo.Fringe.StackFringe;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class DfsSolver implements puzzleSolver {
 
@@ -25,5 +24,8 @@ public class DfsSolver implements puzzleSolver {
         return searcher.getExplored().size();
     }
 
+    public int getMaxDepth() {
+        return searcher.getMaxDepth();
+    }
 
 }
