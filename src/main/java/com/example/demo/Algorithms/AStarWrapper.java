@@ -39,4 +39,9 @@ public class AStarWrapper implements puzzleSolver {
     public int getExploredSize() {
         return this.explored.size();
     }
+
+    @Override
+    public int getMaxDepth() {
+        return 0;
+    }
 }
