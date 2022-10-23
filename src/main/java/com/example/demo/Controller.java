@@ -344,11 +344,11 @@ public class Controller {
 
 
    @FXML
+   //To Show Path To Goal
         protected void view(){    
             int limit=result.size();
             AnchorPane secondaryLayout = new AnchorPane();
-           // secondaryLayout.setBackground(new Background(new BackgroundFill(Color.BLACK,null,null)));
-          // secondaryLayout.setStyle("-fx-background-image: url('https://c4.wallpaperflare.com/wallpaper/651/896/1021/minimalist-purple-wallpaper-thumb.jpg')");
+
             secondaryLayout.setPrefSize(1530,800);
             ScrollPane sp=new ScrollPane();    
             Group root=new Group();
@@ -356,6 +356,7 @@ public class Controller {
             sp.setPrefSize(1530, 800);
             sp.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
             Scene secondScene = new Scene(root, 1530, 800);
+            //If Number Of Moves Greater Than 1000 Print The First 1000 Moves Only
             if(result.size()>1000){
              limit=1000;
             }
@@ -376,6 +377,7 @@ public class Controller {
             Label b7=new Label();
             Label b8=new Label();
             Label b9=new Label();
+            if(i<limit-1){
             Button downbutton=new Button();
             downbutton.setMaxWidth(70);
             downbutton.setMaxHeight(70);
@@ -383,6 +385,8 @@ public class Controller {
             downbutton.setTranslateX(740.0f);
             downbutton.setTranslateY(150.0f+150*i);
             downbutton.setRotate(90);
+            secondaryLayout.getChildren().add(downbutton);
+            }
             Text text=new Text();
             text.setFill(Color.WHITE);
             Line l=new Line();
@@ -395,14 +399,12 @@ public class Controller {
             b1.setFont(Font.font(20));
             b1.setPrefSize(20, 20);
             b1.setAlignment(Pos.BASELINE_CENTER);
-           // b1.setStyle("-fx-background-image: url('https://c0.wallpaperflare.com/preview/607/614/426/4k-wallpaper-background-brown-hardwood.jpg')");
     
     b2.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));  
             b2.setFont(Font.font("Forte"));
             b2.setFont(Font.font(20));
             b2.setPrefSize(20, 20);
             b2.setAlignment(Pos.BASELINE_CENTER);
-         //   b2.setStyle("-fx-background-image: url('https://c0.wallpaperflare.com/preview/607/614/426/4k-wallpaper-background-brown-hardwood.jpg')");
 
     
     
@@ -412,7 +414,6 @@ public class Controller {
             b3.setFont(Font.font(20));
             b3.setPrefSize(20, 20);
             b3.setAlignment(Pos.BASELINE_CENTER);
-           // b3.setStyle("-fx-background-image: url('https://c0.wallpaperflare.com/preview/607/614/426/4k-wallpaper-background-brown-hardwood.jpg')");
 
     
     
@@ -422,7 +423,6 @@ public class Controller {
             b4.setFont(Font.font(20));
             b4.setPrefSize(20, 20);
             b4.setAlignment(Pos.BASELINE_CENTER);
-         //   b4.setStyle("-fx-background-image: url('https://c0.wallpaperflare.com/preview/607/614/426/4k-wallpaper-background-brown-hardwood.jpg')");
 
     
     
@@ -432,7 +432,6 @@ public class Controller {
             b5.setFont(Font.font(20));
             b5.setPrefSize(20, 20);
             b5.setAlignment(Pos.BASELINE_CENTER);
-         //   b5.setStyle("-fx-background-image: url('https://c0.wallpaperflare.com/preview/607/614/426/4k-wallpaper-background-brown-hardwood.jpg')");
 
     
     
@@ -442,7 +441,6 @@ public class Controller {
             b6.setFont(Font.font(20));
             b6.setPrefSize(20, 20);
             b6.setAlignment(Pos.BASELINE_CENTER);
-         //  b6.setStyle("-fx-background-image: url('https://c0.wallpaperflare.com/preview/607/614/426/4k-wallpaper-background-brown-hardwood.jpg')");
 
     
     
@@ -452,7 +450,6 @@ public class Controller {
             b7.setFont(Font.font(20));
             b7.setPrefSize(20, 20);
             b7.setAlignment(Pos.BASELINE_CENTER);
-          //  b7.setStyle("-fx-background-image: url('https://c0.wallpaperflare.com/preview/607/614/426/4k-wallpaper-background-brown-hardwood.jpg')");
 
     
     
@@ -462,7 +459,6 @@ public class Controller {
             b8.setFont(Font.font(20));
             b8.setPrefSize(20, 20);
             b8.setAlignment(Pos.BASELINE_CENTER);
-          //  b8.setStyle("-fx-background-image: url('https://c0.wallpaperflare.com/preview/607/614/426/4k-wallpaper-background-brown-hardwood.jpg')");
 
     
     
@@ -536,23 +532,8 @@ public class Controller {
             if(result.get(i).charAt(8)=='0'){
                 b9.setVisible(false);
             }
-           
-            //sp.setContent(rec);
-            // sp.setContent(b1);
-           /*  sp.setContent(b2);
-            sp.setContent(b3);
-            sp.setContent(b4);
-            sp.setContent(b5);
-            sp.setContent(b6);
-            sp.setContent(b7);
-            sp.setContent(b8);
-            sp.setContent(b9);*/
-           // root.getChildren().addAll(sp);
-
-            
 
              secondaryLayout.getChildren().add(rec);
-    
             secondaryLayout.getChildren().add(b1);
             secondaryLayout.getChildren().add(b2);
             secondaryLayout.getChildren().add(b3);
@@ -562,8 +543,6 @@ public class Controller {
             secondaryLayout.getChildren().add(b7);
             secondaryLayout.getChildren().add(b8);
             secondaryLayout.getChildren().add(b9);
-            secondaryLayout.getChildren().add(downbutton);
-        
             sp.setContent(secondaryLayout);
     
 

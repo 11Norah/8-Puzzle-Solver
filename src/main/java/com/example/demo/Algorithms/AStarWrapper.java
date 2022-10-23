@@ -9,18 +9,19 @@ import java.util.HashSet;
 
 public class AStarWrapper implements puzzleSolver {
 
-    AStarSolver aStarSolver;
-    IHeuristic heuristic;
+    private AStarSolver aStarSolver;
+    private IHeuristic heuristic;
+    private int exploredSize;
 
-    int exploredSize;
+    private HashMap<String, State> explored;
+    private ArrayList<String> res = new ArrayList<>();
 
-    HashMap<String, State> explored;
-    ArrayList<String> res = new ArrayList<>();
-
+    private int maxDepth;
 
     public AStarWrapper(IHeuristic heuristic) {
         aStarSolver = new AStarSolver();
         this.heuristic = heuristic;
+        maxDepth = 0;
     }
 
     @Override
@@ -28,6 +29,7 @@ public class AStarWrapper implements puzzleSolver {
         this.explored = aStarSolver.solve(initialPuzzle, this.heuristic);
         this.exploredSize = explored.size();
         this.res = aStarSolver.getGoalPath(this.explored);
+        this.maxDepth = (int) this.explored.get("maxDepth").getCostG();
     }
 
     @Override
@@ -42,6 +44,6 @@ public class AStarWrapper implements puzzleSolver {
 
     @Override
     public int getMaxDepth() {
-        return 0;
+        return this.maxDepth;
     }
 }

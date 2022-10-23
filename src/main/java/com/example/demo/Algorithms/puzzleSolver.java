@@ -5,6 +5,10 @@ import java.util.HashSet;
 
 public interface puzzleSolver {
     void solve(String initialPuzzle);
+
     ArrayList<String> getSolution();
+
     int getExploredSize();
+
+    int getMaxDepth();
 }

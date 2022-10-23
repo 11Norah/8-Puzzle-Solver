@@ -1,16 +1,13 @@
 package com.example.demo.States;
 
-import com.example.demo.Heuristics.IHeuristic;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class State implements Comparable<State> {
 
-    private final String numbers;
+    private String numbers;
     private double costG;
     private double totalCost;
-    private final State parent;
+    private State parent;
     private int emptySlot;
     private int depth;
 
@@ -39,20 +36,19 @@ public class State implements Comparable<State> {
     }
 
     public State(String numbers, State parent, double costG, double heuristicCost) {
-        long startTime = System.nanoTime();
         this.numbers = numbers;
         this.parent = parent;
         this.costG = costG;
         this.totalCost = costG + heuristicCost;
         detectEmptySlot();
-        long endTime = System.nanoTime();
-    //    System.out.println("state constructor =" + ((endTime - startTime) / 1000));
     }
 
+    public State(double costG) {
+        this.costG = costG;
+    }
 
     public ArrayList<String> generateAdjacent() {
         ArrayList<String> adjacent = new ArrayList<>();
-        long startTime = System.nanoTime();
         int[] adj = new int[]{1, -1, 3, -3};
         char numToSwap;
         int tempInd;
@@ -66,7 +62,6 @@ public class State implements Comparable<State> {
                 adjacent.add(adjacentState);
             }
         }
-      //  System.out.println("generateAdjacent = " + (((System.nanoTime() - startTime) / 1000)));
         return adjacent;
 
     }
@@ -81,14 +76,12 @@ public class State implements Comparable<State> {
     }
 
     private void detectEmptySlot() {
-      //  long startTime = System.nanoTime();
         for (int i = 0; i < 9; i++) {
             if ((int) numbers.charAt(i) == '0') {
                 emptySlot = i;
                 break;
             }
         }
-     //   System.out.println("DetectEmptySlot = " + (((System.nanoTime() - startTime) / 1000)));
     }
 
 
