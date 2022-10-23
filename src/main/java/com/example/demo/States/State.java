@@ -12,11 +12,13 @@ public class State implements Comparable<State> {
     private double totalCost;
     private final State parent;
     private int emptySlot;
+    private int depth;
 
 
-    public State(String numbers, State parent) {
+    public State(String numbers, State parent, int depth) {
         this.numbers = numbers;
         this.parent = parent;
+        this.depth = depth;
         detectEmptySlot();
     }
 
@@ -30,6 +32,10 @@ public class State implements Comparable<State> {
 
     public void setEmptySlot(int emptySlot) {
         this.emptySlot = emptySlot;
+    }
+
+    public int getDepth() {
+        return depth;
     }
 
     public State(String numbers, State parent, double costG, double heuristicCost) {
