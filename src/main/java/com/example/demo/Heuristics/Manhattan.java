@@ -14,10 +14,12 @@ public class Manhattan implements IHeuristic {
         double heuristic = 0;
         for (int i = 0; i < 9; i++) {
             number = numbers.charAt(i);
-            int xIndex = i / 3;
-            int yIndex = i % 3;
-            goalIndex = goal[number - '0'];
-            heuristic += manhattanDistance(xIndex, yIndex, goalIndex[0], goalIndex[1]);
+            if (number != '0') {
+                int xIndex = i / 3;
+                int yIndex = i % 3;
+                goalIndex = goal[number - '0'];
+                heuristic += manhattanDistance(xIndex, yIndex, goalIndex[0], goalIndex[1]);
+            }
         }
         return heuristic;
     }

@@ -4,24 +4,24 @@ public class Euclidean implements IHeuristic {
     private final int[][] goal;
 
     public Euclidean() {
-        goal = new int[][]{{0,0},{0,1},{0,2},{1,0},{1,1},{1,2},{2,0},{2,1},{2,2}};
+        goal = new int[][]{{0, 0}, {0, 1}, {0, 2}, {1, 0}, {1, 1}, {1, 2}, {2, 0}, {2, 1}, {2, 2}};
     }
 
 
     public double generateHeuristic(String numbers) {
-        long start = System.nanoTime();
         int number;
         int[] goalIndex;
         double heuristic = 0;
         for (int i = 0; i < 9; i++) {
             number = numbers.charAt(i);
-            int xIndex = i / 3;
-            int yIndex = i % 3;
-            goalIndex = goal[number-'0'];
-            heuristic += euclideanDistance(xIndex, yIndex, goalIndex[0], goalIndex[1]);
+            if (number != '0') {
+                int xIndex = i / 3;
+                int yIndex = i % 3;
+                goalIndex = goal[number - '0'];
+                heuristic += euclideanDistance(xIndex, yIndex, goalIndex[0], goalIndex[1]);
+            }
         }
-        long end = System.nanoTime() ;
-      //  System.out.println("Heuristics generation = " + (((end - start) /1000)));
+
         return heuristic;
     }
 
