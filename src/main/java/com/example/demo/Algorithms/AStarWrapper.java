@@ -11,8 +11,6 @@ public class AStarWrapper implements puzzleSolver {
 
     private AStarSolver aStarSolver;
     private IHeuristic heuristic;
-    private int exploredSize;
-
     private HashMap<String, State> explored;
     private ArrayList<String> res = new ArrayList<>();
 
@@ -27,9 +25,8 @@ public class AStarWrapper implements puzzleSolver {
     @Override
     public void solve(String initialPuzzle) {
         this.explored = aStarSolver.solve(initialPuzzle, this.heuristic);
-        this.exploredSize = explored.size() - 1;
         this.res = aStarSolver.getGoalPath(this.explored);
-        this.maxDepth = (int) this.explored.get("maxDepth").getCostG();
+        this.maxDepth = aStarSolver.getMaxDepth();
     }
 
     @Override
